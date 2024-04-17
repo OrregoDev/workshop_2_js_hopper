@@ -1,17 +1,13 @@
 // JULIAN`S TRIP
 
-const destination = prompt ("Insert the destination you would like to visit");
-let days = prompt ("Insert the days you are planning to stay there");
-let budget = prompt ("Insert you budget for this trip");
-const dailyCost = 200;
+const destination = String(prompt('Where would you like to go?'));
+let days = Number(prompt('How many days would you like to stay?'));
+let budget = Number(prompt('How much would you like to spend?'));
+const dailyCost = 250;
+let totalCost = days * dailyCost;
 
-function checkBudget (days, budget, dailyCost) {
-    const totalCost = days * dailyCost;
-    if (budget >= totalCost) {
-        return "Julian has enough money";
-    } else {
-        return "Julian should adjust the destination or the amount of days";
-    }
+if (budget < totalCost) {
+  alert("Sorry, you don't have enough money. You should adjust your budget.");
+} else {
+  alert('Enjoy your trip!');
 }
-
-console.log(checkBudget(days, budget, estimatedDailyCost));
