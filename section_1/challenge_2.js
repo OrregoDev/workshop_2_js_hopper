@@ -1,5 +1,6 @@
 // Types of Souvenirs
 
+
 const BUDGET = 10000;
 
 function getCost() {
