@@ -13,11 +13,12 @@ function getAmount(promptMessage) {
   }
 }
 
-function getBudget() {
+function getBudgetAndEstimatedCosts() {
   let budget;
+  let estimatedCosts;
   while (true) {
     budget = getAmount('how much would you like to spend?');
-    const estimatedCosts = getAmount(
+    estimatedCosts = getAmount(
       'How much are the estimated costs of your trip?'
     );
     if (budget > estimatedCosts) {
@@ -26,7 +27,7 @@ function getBudget() {
       alert('Your budget is not enough.');
     }
   }
-  return budget;
+  return { budget, estimatedCosts };
 }
 
 function askForArticles() {
@@ -68,8 +69,8 @@ function getPossiblesArticlesToBuy(articles, budgetToSpend) {
   return possibleArticlesToBuy;
 }
 
-function main(estimatedCosts) {
-  const budget = getBudget();
+function main() {
+  const { estimatedCosts, budget } = getBudgetAndEstimatedCosts();
   const articles = askForArticles();
   const remainingBudget = budget - estimatedCosts;
   const budgetToSpend = getBudgetToSpend(remainingBudget, minimumSavings);
