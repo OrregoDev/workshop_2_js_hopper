@@ -4,8 +4,8 @@ const minimumSavings = 500;
 
 function getAmount(promptMessage) {
   while (true) {
-    const amount = prompt(promptMessage);
-    if (!isNaN(amount) && amount > 0) {
+    const amount = Number(prompt(promptMessage));
+    if (!Number.isNaN(amount) && amount > 0) {
       return amount;
     } else {
       alert('Please enter a valid number.');
@@ -14,8 +14,9 @@ function getAmount(promptMessage) {
 }
 
 function getBudget() {
+  let budget;
   while (true) {
-    const budget = getAmount('how much would you like to spend?');
+    budget = getAmount('how much would you like to spend?');
     const estimatedCosts = getAmount(
       'How much are the estimated costs of your trip?'
     );
@@ -27,8 +28,6 @@ function getBudget() {
   }
   return budget;
 }
-
-const budget = getBudget();
 
 function askForArticles() {
   const articles = [];
@@ -51,8 +50,6 @@ function askForArticles() {
   return articles;
 }
 
-const remainingBudget = budget - estimatedCosts;
-
 function getBudgetToSpend(remainingBudget, minimumSavings) {
   if (remainingBudget <= minimumSavings) {
     alert(
@@ -63,9 +60,6 @@ function getBudgetToSpend(remainingBudget, minimumSavings) {
   return remainingBudget - minimumSavings;
 }
 
-const budgetToSpend = getBudgetToSpend(remainingBudget, minimumSavings);
-const articles = askForArticles();
-
 function getPossiblesArticlesToBuy(articles, budgetToSpend) {
   const possibleArticlesToBuy = [];
   articles.forEach((article) => {
@@ -74,15 +68,21 @@ function getPossiblesArticlesToBuy(articles, budgetToSpend) {
   return possibleArticlesToBuy;
 }
 
-const possibleArticlesToBuy = getPossiblesArticlesToBuy(
-  articles,
-  budgetToSpend
-);
+function main() {
+  const budget = getBudget();
+  const articles = askForArticles();
+  const remainingBudget = budget - estimatedCosts;
+  const budgetToSpend = getBudgetToSpend(remainingBudget, minimumSavings);
+  const possibleArticlesToBuy = getPossiblesArticlesToBuy(
+    articles,
+    budgetToSpend
+  );
+  const cheapestArticle = possibleArticlesToBuy.reduce((previous, current) => {
+    return current.cost > previous.cost ? current : previous;
+  });
+  alert(
+    `The cheapest article is ${cheapestArticle.name} with a cost of ${cheapestArticle.cost}`
+  );
+}
 
-const cheapestArticle = possibleArticlesToBuy.reduce((previous, current) => {
-  return current.cost > previous.cost ? current : previous;
-});
-
-alert(
-  `The cheapest article is ${cheapestArticle.name} with a cost of ${cheapestArticle.cost}`
-);
+main();
