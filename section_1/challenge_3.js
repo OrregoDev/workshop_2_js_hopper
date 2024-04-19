@@ -50,7 +50,7 @@ function askForArticles() {
   return articles;
 }
 
-function getBudgetToSpend(remainingBudget, minimumSavings) {
+function getBudgetToSpend(remainingBudget) {
   if (remainingBudget <= minimumSavings) {
     alert(
       'You shouldn´t buy extra articles in order to avoid exceeding your budget'
@@ -68,7 +68,7 @@ function getPossiblesArticlesToBuy(articles, budgetToSpend) {
   return possibleArticlesToBuy;
 }
 
-function main() {
+function main(estimatedCosts) {
   const budget = getBudget();
   const articles = askForArticles();
   const remainingBudget = budget - estimatedCosts;
@@ -78,11 +78,12 @@ function main() {
     budgetToSpend
   );
   const cheapestArticle = possibleArticlesToBuy.reduce((previous, current) => {
-    return current.cost > previous.cost ? current : previous;
-  });
+    return current.cost < previous.cost ? current : previous;
+  }, possibleArticlesToBuy[0]);
   alert(
     `The cheapest article is ${cheapestArticle.name} with a cost of ${cheapestArticle.cost}`
   );
+  return cheapestArticle;
 }
 
 main();
