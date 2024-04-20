@@ -16,10 +16,27 @@ const dailySavingsGoal = getAmount('How much is your minimum daily savings?');
 const eatingOutPrice = getAmount('How much does your eating out cost?');
 const bookPrice = getAmount('How much does your book cost?');
 
-if (dailyBudget <= dailySavingsGoal) {
-  alert('Your daily budget is not enough. You should adjust your budget.');
-} else if (dailyBudget - dailySavingsGoal >= eatingOutPrice) {
-  alert('You could go out to eat');
-} else if (dailyBudget - dailySavingsGoal >= bookPrice) {
-  alert('You could buy a book.');
+while (true) {
+  if (dailyBudget <= dailySavingsGoal) {
+    alert('Your daily budget is not enough. You should adjust your budget.');
+  } else {
+    break;
+  }
+
+  const couldEatOut = dailyBudget - dailySavingsGoal >= eatingOutPrice;
+  const couldBuyBook = dailyBudget - dailySavingsGoal >= bookPrice;
+
+  if (couldEatOut && couldBuyBook) {
+    alert(
+      'You can have the eating out and the book and reach your savings goal.'
+    );
+  } else if (couldEatOut) {
+    alert('You can just have the eating out and reach your savings goal.');
+  } else if (couldBuyBook) {
+    alert('You can just have the book and reach your savings goal.');
+  } else {
+    alert(
+      'You should adjust your budget to afford anything else and yet reach your savings goal.'
+    );
+  }
 }
