@@ -12,31 +12,38 @@ function getAmount(promptMessage) {
 }
 
 const dailyBudget = getAmount('How much is your daily budget?');
-const dailySavingsGoal = getAmount('How much is your minimum daily savings?');
+
+function getDailySavingsGoal(dailyBudget) {
+  while (true) {
+    const dailySavingsGoal = getAmount('How much is your daily savings goal?');
+    if (dailySavingsGoal <= dailyBudget) {
+      return dailySavingsGoal;
+    } else {
+      alert(
+        'Your daily budget is not enough. You should adjust your daily savings goal.'
+      );
+    }
+  }
+}
+
+const dailySavingsGoal = getDailySavingsGoal(dailyBudget);
 const eatingOutPrice = getAmount('How much does your eating out cost?');
 const bookPrice = getAmount('How much does your book cost?');
+const remainingBudget = dailyBudget - dailySavingsGoal;
 
-while (true) {
-  if (dailyBudget <= dailySavingsGoal) {
-    alert('Your daily budget is not enough. You should adjust your budget.');
-  } else {
-    break;
-  }
+const couldEatOut = remainingBudget >= eatingOutPrice;
+const couldBuyBook = remainingBudget >= bookPrice;
 
-  const couldEatOut = dailyBudget - dailySavingsGoal >= eatingOutPrice;
-  const couldBuyBook = dailyBudget - dailySavingsGoal >= bookPrice;
-
-  if (couldEatOut && couldBuyBook) {
-    alert(
-      'You can have the eating out and the book and reach your savings goal.'
-    );
-  } else if (couldEatOut) {
-    alert('You can just have the eating out and reach your savings goal.');
-  } else if (couldBuyBook) {
-    alert('You can just have the book and reach your savings goal.');
-  } else {
-    alert(
-      'You should adjust your budget to afford anything else and yet reach your savings goal.'
-    );
-  }
+if (couldEatOut && couldBuyBook) {
+  alert(
+    'You can have the eating out and the book and reach your savings goal.'
+  );
+} else if (couldEatOut) {
+  alert('You can just have the eating out and reach your savings goal.');
+} else if (couldBuyBook) {
+  alert('You can just have the book and reach your savings goal.');
+} else {
+  alert(
+    'You should adjust your budget to afford anything else and yet reach your savings goal.'
+  );
 }
